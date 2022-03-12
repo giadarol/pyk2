@@ -32,6 +32,10 @@ subroutine pyk2_init(n_alloc)
   call rluxgo(3, rnd_seed, 0, 0)
 
   call coll_expandArrays(n_alloc)
+  call alloc(naa, n_alloc, aa0, "naa")
+  call alloc(partID, n_alloc, 0, "partID")
+  call alloc(parentID, n_alloc, 0, "parentID")
+  call alloc(pairID, 2, n_alloc, 0, "pairID")
 
 end subroutine
  
@@ -109,11 +113,8 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   !read(numpart,*) napx
   npart=num_particles
   
-  call alloc(naa, npart, aa0, "naa")
-  call alloc(partID, npart, 0, "partID")
-  call alloc(parentID, npart, 0, "parentID")
-  call alloc(pairID, 2, npart, 0, "pairID")
   do j=1,npart
+    naa(j) = aa0
     partID(j)   = j
     parentID(j) = j
     pairID(1,j) = (j+1)/2    ! The pairID of particle j
