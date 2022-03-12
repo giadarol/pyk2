@@ -56,7 +56,7 @@ subroutine pyk2(num_particles, x_particles)
   ! ####################
 
   integer, intent(in)       :: num_particles
-  real(kind=8), intent(in)  :: x_particles(num_particles)
+  real(kind=8), intent(inout)  :: x_particles(num_particles)
 
 
 
@@ -178,8 +178,9 @@ subroutine pyk2(num_particles, x_particles)
      part_abs_pos, part_abs_turn, part_impact, part_indiv, part_linteract,             &
      onesided, nhit_stage, 1, nabs_type, linside)
 
-  filename="rcx.dump_after"
-  call realtofile(rcx,filename)
+  do j=1,npart
+    x_particles(j) = rcx(j)
+  end do
   filename="rcxp.dump_after"
   call realtofile(rcxp,filename)
   filename="rcy.dump_after"
