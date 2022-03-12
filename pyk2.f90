@@ -102,6 +102,10 @@ subroutine pyk2()
 
 
 
+  ! Set default values for collimator materials
+  call collmat_init
+  cdb_fileName="CollDB-RunIII.dat"
+  call cdb_readCollDB
 
   
   napx=npart  ! this decreases after absorptions!
@@ -120,10 +124,6 @@ subroutine pyk2()
   onesided = .FALSE.
   linside(:) = .FALSE.
 
-  ! Set default values for collimator materials
-  call collmat_init
-  cdb_fileName="CollDB-RunIII.dat"
-  call cdb_readCollDB
 
   call coll_expandArrays(npart)
   filename="rcx.dump"
