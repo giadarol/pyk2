@@ -107,7 +107,7 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   !character(len=:),    allocatable   :: numpart
   !numpart="20000"
   !read(numpart,*) napx
-  npart=20000
+  npart=num_particles
   
   call alloc(naa, npart, aa0, "naa")
   call alloc(partID, npart, 0, "partID")
