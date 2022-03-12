@@ -22,6 +22,13 @@ subroutine pyk2_init()
   cdb_fileName="CollDB-RunIII.dat"
   call cdb_readCollDB
 
+  rnd_seed = 7569
+
+  ! Initialize random number generator
+  !if(rnd_seed == 0) rnd_seed = time_getSysClock()
+  if(rnd_seed <  0) rnd_seed = abs(rnd_seed)
+  call rluxgo(3, rnd_seed, 0, 0)
+
   end subroutine
  
 subroutine pyk2()
@@ -101,17 +108,9 @@ subroutine pyk2()
     pairID(1,j) = (j+1)/2    ! The pairID of particle j
     pairID(2,j) = 2-mod(j,2) ! Either particle 1 or 2 of the pair
   end do
-
-
-!  ! Set default values for collimator materials
-!  call collmat_init
-!  cdb_fileName="CollDB-RunIII.dat"
-!  call cdb_readCollDB
-
   
   napx=npart  ! this decreases after absorptions!
   unit208=109
-  rnd_seed = 7569
 
   icoll = 31
   iturn = 1
@@ -162,10 +161,6 @@ subroutine pyk2()
 ! print *, rcx
 ! print *, rcyp
 
-  ! Initialize random number generator
-  !if(rnd_seed == 0) rnd_seed = time_getSysClock()
-  if(rnd_seed <  0) rnd_seed = abs(rnd_seed)
-  call rluxgo(3, rnd_seed, 0, 0)
 
 
 
