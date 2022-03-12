@@ -18,6 +18,7 @@ part_indiv = np.zeros(len(x_test), dtype=np.float)
 part_linteract = np.zeros(len(x_test), dtype=np.float)
 nhit_stage = np.zeros(len(x_test), dtype=np.int32)
 nabs_type = np.zeros(len(x_test), dtype=np.int32)
+linside = np.zeros(len(x_test), dtype=np.int32)
 
 pyk2.pyk2_init(n_alloc = 100000)
 pyk2.pyk2(x_particles=x_test,
@@ -34,7 +35,8 @@ pyk2.pyk2(x_particles=x_test,
           part_indiv=part_indiv,
           part_linteract=part_linteract,
           nhit_stage=nhit_stage,
-          nabs_type=nabs_type)
+          nabs_type=nabs_type,
+          linside=linside)
 
 x_ref = np.loadtxt("./rcx.dump_after_REF")
 xp_ref = np.loadtxt("./rcxp.dump_after_REF")

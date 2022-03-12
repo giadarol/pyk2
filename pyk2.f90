@@ -39,7 +39,7 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
                 y_particles, yp_particles, s_particles, &
                 p_particles, part_hit_pos, part_hit_turn, &
                 part_abs_pos, part_abs_turn, part_impact, &
-                part_indiv, part_linteract, nhit_stage, nabs_type)
+                part_indiv, part_linteract, nhit_stage, nabs_type, linside)
 
   use floatPrecision
   use numerical_constants
@@ -81,6 +81,7 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   real(kind=8) , intent(inout) :: part_linteract(num_particles)
   integer(kind=4)  , intent(inout) :: nhit_stage(num_particles)
   integer(kind=4)  , intent(inout) :: nabs_type(num_particles)
+  logical(kind=4)  , intent(inout) :: linside(num_particles)
 
   integer j
 
@@ -98,7 +99,6 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   real(kind=fPrec) :: c_tilt(2)
   real(kind=fPrec) :: c_enom
   logical(kind=4)  :: onesided
-  logical(kind=4)  :: linside(20000)
 
 
   ! ####################
