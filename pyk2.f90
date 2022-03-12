@@ -35,7 +35,11 @@ subroutine pyk2_init(n_alloc)
 
 end subroutine
  
-subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_particles, s_particles, p_particles)
+subroutine pyk2(num_particles, x_particles, xp_particles, &
+                y_particles, yp_particles, s_particles, &
+                p_particles, part_hit_pos, part_hit_turn, &
+                part_abs_pos, part_abs_turn, part_impact, &
+                part_indiv, part_linteract, nhit_stage, nabs_type)
 
   use floatPrecision
   use numerical_constants
@@ -68,6 +72,15 @@ subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_partic
   real(kind=8), intent(inout)  :: s_particles(num_particles)
   real(kind=8), intent(inout)  :: p_particles(num_particles)
 
+  integer(kind=4)  , intent(inout) :: part_hit_pos(num_particles)
+  integer(kind=4)  , intent(inout) :: part_hit_turn(num_particles)
+  integer(kind=4)  , intent(inout) :: part_abs_pos(num_particles)
+  integer(kind=4)  , intent(inout) :: part_abs_turn(num_particles)
+  real(kind=8) , intent(inout) :: part_impact(num_particles)
+  real(kind=8) , intent(inout) :: part_indiv(num_particles)
+  real(kind=8) , intent(inout) :: part_linteract(num_particles)
+  integer(kind=4)  , intent(inout) :: nhit_stage(num_particles)
+  integer(kind=4)  , intent(inout) :: nabs_type(num_particles)
 
   character(len=80)  :: filename
   integer j
@@ -85,16 +98,7 @@ subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_partic
   real(kind=fPrec) :: c_offset
   real(kind=fPrec) :: c_tilt(2)
   real(kind=fPrec) :: c_enom
-  integer(kind=4)  :: part_hit_pos(20000)
-  integer(kind=4)  :: part_hit_turn(20000)
-  integer(kind=4)  :: part_abs_pos(20000)
-  integer(kind=4)  :: part_abs_turn(20000)
-  real(kind=fPrec) :: part_impact(20000)
-  real(kind=fPrec) :: part_indiv(20000)
-  real(kind=fPrec) :: part_linteract(20000)
   logical(kind=4)  :: onesided
-  integer(kind=4)  :: nhit_stage(20000)
-  integer(kind=4)  :: nabs_type(20000)
   logical(kind=4)  :: linside(20000)
 
 
@@ -154,24 +158,24 @@ subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_partic
   !call realfromfile(filename,rcp)
   !filename="rcs.dump"
   !call realfromfile(filename,rcs)
-  filename="part_hit_pos.dump"
-  call intfromfile(filename,part_hit_pos)
-  filename="part_hit_turn.dump"
-  call intfromfile(filename,part_hit_turn)
-  filename="part_abs_pos.dump"
-  call intfromfile(filename,part_abs_pos)
-  filename="part_abs_turn.dump"
-  call intfromfile(filename,part_abs_turn)
-  filename="part_impact.dump"
-  call realfromfile(filename,part_impact)
-  filename="part_indiv.dump"
-  call realfromfile(filename,part_indiv)
-  filename="part_linteract.dump"
-  call realfromfile(filename,part_linteract)
-  filename="nhit_stage.dump"
-  call intfromfile(filename,nhit_stage)
-  filename="nabs_type.dump"
-  call intfromfile(filename,nabs_type)
+  !filename="part_hit_pos.dump"
+  !call intfromfile(filename,part_hit_pos)
+  !filename="part_hit_turn.dump"
+  !call intfromfile(filename,part_hit_turn)
+  !filename="part_abs_pos.dump"
+  !call intfromfile(filename,part_abs_pos)
+  !filename="part_abs_turn.dump"
+  !call intfromfile(filename,part_abs_turn)
+  !filename="part_impact.dump"
+  !call realfromfile(filename,part_impact)
+  !filename="part_indiv.dump"
+  !call realfromfile(filename,part_indiv)
+  !filename="part_linteract.dump"
+  !call realfromfile(filename,part_linteract)
+  !filename="nhit_stage.dump"
+  !call intfromfile(filename,nhit_stage)
+  !filename="nabs_type.dump"
+  !call intfromfile(filename,nabs_type)
 
 ! print *, c1m3
 ! print *, rcx
@@ -193,6 +197,7 @@ subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_partic
      s_particles(j) = rcs(j)
      p_particles(j) = rcp(j)
   end do
+
   !filename="rcxp.dump_after"
   !call realtofile(rcxp,filename)
   !filename="rcy.dump_after"
@@ -203,24 +208,24 @@ subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_partic
   !call realtofile(rcp,filename)
   !filename="rcs.dump_after"
   !call realtofile(rcs,filename)
-  filename="part_hit_pos.dump_after"
-  call inttofile(part_hit_pos,filename)
-  filename="part_hit_turn.dump_after"
-  call inttofile(part_hit_turn,filename)
-  filename="part_abs_pos.dump_after"
-  call inttofile(part_abs_pos,filename)
-  filename="part_abs_turn.dump_after"
-  call inttofile(part_abs_turn,filename)
-  filename="part_impact.dump_after"
-  call realtofile(part_impact,filename)
-  filename="part_indiv.dump_after"
-  call realtofile(part_indiv,filename)
-  filename="part_linteract.dump_after"
-  call realtofile(part_linteract,filename)
-  filename="nhit_stage.dump_after"
-  call inttofile(nhit_stage,filename)
-  filename="nabs_type.dump_after"
-  call inttofile(nabs_type,filename)
+  !filename="part_hit_pos.dump_after"
+  !call inttofile(part_hit_pos,filename)
+  !filename="part_hit_turn.dump_after"
+  !call inttofile(part_hit_turn,filename)
+  !filename="part_abs_pos.dump_after"
+  !call inttofile(part_abs_pos,filename)
+  !filename="part_abs_turn.dump_after"
+  !call inttofile(part_abs_turn,filename)
+  !filename="part_impact.dump_after"
+  !call realtofile(part_impact,filename)
+  !filename="part_indiv.dump_after"
+  !call realtofile(part_indiv,filename)
+  !filename="part_linteract.dump_after"
+  !call realtofile(part_linteract,filename)
+  !filename="nhit_stage.dump_after"
+  !call inttofile(nhit_stage,filename)
+  !filename="nabs_type.dump_after"
+  !call inttofile(nabs_type,filename)
 
 end subroutine 
 
