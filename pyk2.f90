@@ -82,7 +82,6 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   integer(kind=4)  , intent(inout) :: nhit_stage(num_particles)
   integer(kind=4)  , intent(inout) :: nabs_type(num_particles)
 
-  character(len=80)  :: filename
   integer j
 
 
@@ -146,43 +145,6 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
     rcs(j) = s_particles(j)
     rcp(j) = p_particles(j)
   end do
-  !filename="rcx.dump"
-  !call realfromfile(filename,rcx)
-  !filename="rcxp.dump"
-  !call realfromfile(filename,rcxp)
-  !filename="rcy.dump"
-  !call realfromfile(filename,rcy)
-  !filename="rcyp.dump"
-  !call realfromfile(filename,rcyp)
-  !filename="rcp.dump"
-  !call realfromfile(filename,rcp)
-  !filename="rcs.dump"
-  !call realfromfile(filename,rcs)
-  !filename="part_hit_pos.dump"
-  !call intfromfile(filename,part_hit_pos)
-  !filename="part_hit_turn.dump"
-  !call intfromfile(filename,part_hit_turn)
-  !filename="part_abs_pos.dump"
-  !call intfromfile(filename,part_abs_pos)
-  !filename="part_abs_turn.dump"
-  !call intfromfile(filename,part_abs_turn)
-  !filename="part_impact.dump"
-  !call realfromfile(filename,part_impact)
-  !filename="part_indiv.dump"
-  !call realfromfile(filename,part_indiv)
-  !filename="part_linteract.dump"
-  !call realfromfile(filename,part_linteract)
-  !filename="nhit_stage.dump"
-  !call intfromfile(filename,nhit_stage)
-  !filename="nabs_type.dump"
-  !call intfromfile(filename,nabs_type)
-
-! print *, c1m3
-! print *, rcx
-! print *, rcyp
-
-
-
 
   call k2coll_collimate(icoll, iturn, ie, c_length, c_rotation, c_aperture, c_offset, &
      c_tilt, rcx, rcxp, rcy, rcyp, rcp, rcs, c_enom*c1m3, part_hit_pos, part_hit_turn, &
@@ -197,35 +159,5 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
      s_particles(j) = rcs(j)
      p_particles(j) = rcp(j)
   end do
-
-  !filename="rcxp.dump_after"
-  !call realtofile(rcxp,filename)
-  !filename="rcy.dump_after"
-  !call realtofile(rcy,filename)
-  !filename="rcyp.dump_after"
-  !call realtofile(rcyp,filename)
-  !filename="rcp.dump_after"
-  !call realtofile(rcp,filename)
-  !filename="rcs.dump_after"
-  !call realtofile(rcs,filename)
-  !filename="part_hit_pos.dump_after"
-  !call inttofile(part_hit_pos,filename)
-  !filename="part_hit_turn.dump_after"
-  !call inttofile(part_hit_turn,filename)
-  !filename="part_abs_pos.dump_after"
-  !call inttofile(part_abs_pos,filename)
-  !filename="part_abs_turn.dump_after"
-  !call inttofile(part_abs_turn,filename)
-  !filename="part_impact.dump_after"
-  !call realtofile(part_impact,filename)
-  !filename="part_indiv.dump_after"
-  !call realtofile(part_indiv,filename)
-  !filename="part_linteract.dump_after"
-  !call realtofile(part_linteract,filename)
-  !filename="nhit_stage.dump_after"
-  !call inttofile(nhit_stage,filename)
-  !filename="nabs_type.dump_after"
-  !call inttofile(nabs_type,filename)
-
 end subroutine 
 
