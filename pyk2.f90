@@ -1,3 +1,29 @@
+subroutine pyk2_init()
+  use floatPrecision
+  use numerical_constants
+  ! use crcoall    NODIG ??
+  use parpro ,           only : npart
+  use mod_alloc ,        only : alloc      ! to allocate partID etc
+  use mod_common ,       only : iexact, napx, unit208, aa0
+  use mod_common_main ,  only : partID, parentID, pairID, naa
+  use mod_ranlux ,       only : rluxgo     ! for ranlux init
+
+  use coll_common ,      only : rnd_seed, rcx, rcxp, rcy, rcyp, rcp, rcs, coll_expandArrays
+  use coll_materials ! for collmat_init
+  use coll_db        ! for cdb_readCollDB
+  use coll_k2        ! for scattering
+
+  use files  ! for testing
+
+  implicit none
+
+  ! Set default values for collimator materials
+  call collmat_init
+  cdb_fileName="CollDB-RunIII.dat"
+  call cdb_readCollDB
+
+  end subroutine
+ 
 subroutine pyk2()
   use floatPrecision
   use numerical_constants
@@ -75,37 +101,12 @@ subroutine pyk2()
     pairID(1,j) = (j+1)/2    ! The pairID of particle j
     pairID(2,j) = 2-mod(j,2) ! Either particle 1 or 2 of the pair
   end do
-  ! call alloc(part_abs_turn, npart, 0, "part_abs_turn")
-  ! call alloc(rcx,  npart, zero, "rcx")
-  ! call alloc(rcxp, npart, zero, "rcxp")
-  ! call alloc(rcy,  npart, zero, "rcy")
-  ! call alloc(rcyp, npart, zero, "rcyp")
-  ! call alloc(rcp,  npart, zero, "rcp")
-  ! call alloc(rcs,  npart, zero, "rcs")
-  ! call alloc(cry_proc, npart, -1, "cry_proc")
-  ! call alloc(cry_proc_prev, npart, -1, "cry_proc_prev")
-  ! call alloc(cry_proc_tmp, npart, -1, "cry_proc_tmp")
-  ! call alloc(rcx0,           npart,  zero, "rcx0")
-  ! call alloc(rcxp0,          npart,  zero, "rcxp0")
-  ! call alloc(rcy0,           npart,  zero, "rcy0")
-  ! call alloc(rcyp0,          npart,  zero, "rcyp0")
-  ! call alloc(rcp0,           npart,  zero, "rcp0")
-  ! call alloc(part_hit_pos,   npart,  0,    "part_hit_pos")
-  ! call alloc(part_hit_turn,  npart,  0,    "part_hit_turn")
-  ! call alloc(part_abs_pos,   npart,  0,    "part_abs_pos")
-  ! call alloc(part_select,    npart,  1,    "part_select")
-  ! call alloc(nabs_type,      npart,  0,    "nabs_type")
-  ! call alloc(nhit_stage,     npart,  0,    "nhit_stage")
-  ! call alloc(part_impact,    npart,  zero, "part_impact")
-  ! call alloc(part_indiv,     npart, -c1m6, "part_indiv")
-  ! call alloc(part_linteract, npart,  zero, "part_linteract")
 
 
-
-  ! Set default values for collimator materials
-  call collmat_init
-  cdb_fileName="CollDB-RunIII.dat"
-  call cdb_readCollDB
+!  ! Set default values for collimator materials
+!  call collmat_init
+!  cdb_fileName="CollDB-RunIII.dat"
+!  call cdb_readCollDB
 
   
   napx=npart  ! this decreases after absorptions!
