@@ -120,6 +120,10 @@ subroutine pyk2()
   onesided = .FALSE.
   linside(:) = .FALSE.
 
+  ! Set default values for collimator materials
+  call collmat_init
+  cdb_fileName="CollDB-RunIII.dat"
+  call cdb_readCollDB
 
   call coll_expandArrays(npart)
   filename="rcx.dump"
@@ -162,10 +166,6 @@ subroutine pyk2()
   if(rnd_seed <  0) rnd_seed = abs(rnd_seed)
   call rluxgo(3, rnd_seed, 0, 0)
 
-  ! Set default values for collimator materials
-  call collmat_init
-  cdb_fileName="CollDB-RunIII.dat"
-  call cdb_readCollDB
 
 
   call k2coll_collimate(icoll, iturn, ie, c_length, c_rotation, c_aperture, c_offset, &
