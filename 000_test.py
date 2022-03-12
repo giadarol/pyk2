@@ -9,7 +9,7 @@ yp_test = np.loadtxt("./rcyp.dump")
 s_test = np.loadtxt("./rcs.dump")
 p_test = np.loadtxt("./rcp.dump")
 
-pyk2.pyk2_init()
+pyk2.pyk2_init(n_alloc = 100000)
 pyk2.pyk2(x_particles=x_test,
           xp_particles=xp_test,
           y_particles=y_test,

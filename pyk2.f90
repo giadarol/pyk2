@@ -1,4 +1,4 @@
-subroutine pyk2_init()
+subroutine pyk2_init(n_alloc)
   use floatPrecision
   use numerical_constants
   ! use crcoall    NODIG ??
@@ -17,6 +17,8 @@ subroutine pyk2_init()
 
   implicit none
 
+  integer, intent(in)       :: n_alloc
+
   ! Set default values for collimator materials
   call collmat_init
   cdb_fileName="CollDB-RunIII.dat"
@@ -28,6 +30,8 @@ subroutine pyk2_init()
   !if(rnd_seed == 0) rnd_seed = time_getSysClock()
   if(rnd_seed <  0) rnd_seed = abs(rnd_seed)
   call rluxgo(3, rnd_seed, 0, 0)
+
+  call coll_expandArrays(n_alloc)
 
 end subroutine
  
@@ -129,7 +133,6 @@ subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_partic
   linside(:) = .FALSE.
 
 
-  call coll_expandArrays(npart)
 
   do j=1,npart
     rcx(j) = x_particles(j)
