@@ -132,8 +132,11 @@ subroutine pyk2(num_particles, x_particles)
 
 
   call coll_expandArrays(npart)
-  filename="rcx.dump"
-  call realfromfile(filename,rcx)
+  do j=1,npart
+    rcx(j) = x_particles(j)
+  end do
+  !filename="rcx.dump"
+  !call realfromfile(filename,rcx)
   filename="rcxp.dump"
   call realfromfile(filename,rcxp)
   filename="rcy.dump"
