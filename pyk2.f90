@@ -29,9 +29,9 @@ subroutine pyk2_init()
   if(rnd_seed <  0) rnd_seed = abs(rnd_seed)
   call rluxgo(3, rnd_seed, 0, 0)
 
-  end subroutine
+end subroutine
  
-subroutine pyk2()
+subroutine pyk2(num_particles, x_particles)
   use floatPrecision
   use numerical_constants
   ! use crcoall    NODIG ??
@@ -54,6 +54,12 @@ subroutine pyk2()
   ! ####################
   ! ## test variables ##
   ! ####################
+
+  integer, intent(in)       :: num_particles
+  real(kind=8), intent(in)  :: x_particles(num_particles)
+
+
+
   character(len=80)  :: filename
   integer j
 
