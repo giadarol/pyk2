@@ -31,7 +31,8 @@ subroutine pyk2_init()
 
 end subroutine
  
-subroutine pyk2(num_particles, x_particles)
+subroutine pyk2(num_particles, x_particles, xp_particles, y_particles, yp_particles, s_particles, p_particles)
+
   use floatPrecision
   use numerical_constants
   ! use crcoall    NODIG ??
@@ -57,7 +58,11 @@ subroutine pyk2(num_particles, x_particles)
 
   integer, intent(in)       :: num_particles
   real(kind=8), intent(inout)  :: x_particles(num_particles)
-
+  real(kind=8), intent(inout)  :: xp_particles(num_particles)
+  real(kind=8), intent(inout)  :: y_particles(num_particles)
+  real(kind=8), intent(inout)  :: yp_particles(num_particles)
+  real(kind=8), intent(inout)  :: s_particles(num_particles)
+  real(kind=8), intent(inout)  :: p_particles(num_particles)
 
 
   character(len=80)  :: filename
@@ -75,13 +80,6 @@ subroutine pyk2(num_particles, x_particles)
   real(kind=fPrec) :: c_aperture
   real(kind=fPrec) :: c_offset
   real(kind=fPrec) :: c_tilt(2)
-  !integer, save    :: rnd_seed   = 0        ! also defined in coll_common
-  !real(kind=fPrec) :: rcx(20000)            ! also defined in coll_common
-  !real(kind=fPrec) :: rcxp(20000)           ! also defined in coll_common
-  !real(kind=fPrec) :: rcy(20000)            ! also defined in coll_common
-  !real(kind=fPrec) :: rcyp(20000)           ! also defined in coll_common
-  !real(kind=fPrec) :: rcp(20000)            ! also defined in coll_common
-  !real(kind=fPrec) :: rcs(20000)            ! also defined in coll_common
   real(kind=fPrec) :: c_enom
   integer(kind=4)  :: part_hit_pos(20000)
   integer(kind=4)  :: part_hit_turn(20000)
@@ -132,21 +130,27 @@ subroutine pyk2(num_particles, x_particles)
 
 
   call coll_expandArrays(npart)
+
   do j=1,npart
     rcx(j) = x_particles(j)
+    rcxp(j) = xp_particles(j)
+    rcy(j) = y_particles(j)
+    rcyp(j) = yp_particles(j)
+    rcs(j) = s_particles(j)
+    rcp(j) = p_particles(j)
   end do
   !filename="rcx.dump"
   !call realfromfile(filename,rcx)
-  filename="rcxp.dump"
-  call realfromfile(filename,rcxp)
-  filename="rcy.dump"
-  call realfromfile(filename,rcy)
-  filename="rcyp.dump"
-  call realfromfile(filename,rcyp)
-  filename="rcp.dump"
-  call realfromfile(filename,rcp)
-  filename="rcs.dump"
-  call realfromfile(filename,rcs)
+  !filename="rcxp.dump"
+  !call realfromfile(filename,rcxp)
+  !filename="rcy.dump"
+  !call realfromfile(filename,rcy)
+  !filename="rcyp.dump"
+  !call realfromfile(filename,rcyp)
+  !filename="rcp.dump"
+  !call realfromfile(filename,rcp)
+  !filename="rcs.dump"
+  !call realfromfile(filename,rcs)
   filename="part_hit_pos.dump"
   call intfromfile(filename,part_hit_pos)
   filename="part_hit_turn.dump"
@@ -179,18 +183,23 @@ subroutine pyk2(num_particles, x_particles)
      onesided, nhit_stage, 1, nabs_type, linside)
 
   do j=1,npart
-    x_particles(j) = rcx(j)
+     x_particles(j) = rcx(j)
+     xp_particles(j) = rcxp(j)
+     y_particles(j) = rcy(j)
+     yp_particles(j) = rcyp(j)
+     s_particles(j) = rcs(j)
+     p_particles(j) = rcp(j)
   end do
-  filename="rcxp.dump_after"
-  call realtofile(rcxp,filename)
-  filename="rcy.dump_after"
-  call realtofile(rcy,filename)
-  filename="rcyp.dump_after"
-  call realtofile(rcyp,filename)
-  filename="rcp.dump_after"
-  call realtofile(rcp,filename)
-  filename="rcs.dump_after"
-  call realtofile(rcs,filename)
+  !filename="rcxp.dump_after"
+  !call realtofile(rcxp,filename)
+  !filename="rcy.dump_after"
+  !call realtofile(rcy,filename)
+  !filename="rcyp.dump_after"
+  !call realtofile(rcyp,filename)
+  !filename="rcp.dump_after"
+  !call realtofile(rcp,filename)
+  !filename="rcs.dump_after"
+  !call realtofile(rcs,filename)
   filename="part_hit_pos.dump_after"
   call inttofile(part_hit_pos,filename)
   filename="part_hit_turn.dump_after"
