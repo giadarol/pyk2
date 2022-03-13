@@ -1,4 +1,4 @@
-subroutine pyk2_init(n_alloc)
+subroutine pyk2_init(n_alloc, colldb_input_fname)
   use floatPrecision
   use numerical_constants
   ! use crcoall    NODIG ??
@@ -8,7 +8,8 @@ subroutine pyk2_init(n_alloc)
   use mod_common_main ,  only : partID, parentID, pairID, naa
   use mod_ranlux ,       only : rluxgo     ! for ranlux init
 
-  use coll_common ,      only : rnd_seed, rcx, rcxp, rcy, rcyp, rcp, rcs, coll_expandArrays
+  use coll_common ,      only : rnd_seed, rcx, rcxp, rcy, rcyp, rcp, rcs, &
+                                coll_expandArrays
   use coll_materials ! for collmat_init
   use coll_db        ! for cdb_readCollDB
   use coll_k2        ! for scattering
@@ -17,11 +18,12 @@ subroutine pyk2_init(n_alloc)
 
   implicit none
 
-  integer, intent(in)       :: n_alloc
+  integer, intent(in)          :: n_alloc
+  character(100), intent(in)   :: colldb_input_fname
 
   ! Set default values for collimator materials
   call collmat_init
-  cdb_fileName="CollDB-RunIII.dat"
+  cdb_fileName=colldb_input_fname
   call cdb_readCollDB
 
   rnd_seed = 7569
