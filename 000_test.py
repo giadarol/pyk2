@@ -40,7 +40,8 @@ pyk2.pyk2(x_particles=x_test,
           part_linteract=part_linteract,
           nhit_stage=nhit_stage,
           nabs_type=nabs_type,
-          linside=linside)
+          linside=linside,
+          rng_seed=-1)
 
 x_ref = np.loadtxt("./rcx.dump_after_REF")
 xp_ref = np.loadtxt("./rcxp.dump_after_REF")

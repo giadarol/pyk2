@@ -46,7 +46,8 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
                 y_particles, yp_particles, s_particles, &
                 p_particles, part_hit_pos, part_hit_turn, &
                 part_abs_pos, part_abs_turn, part_impact, &
-                part_indiv, part_linteract, nhit_stage, nabs_type, linside)
+                part_indiv, part_linteract, nhit_stage, nabs_type, linside, &
+                rng_seed)
 
   use floatPrecision
   use numerical_constants
@@ -89,6 +90,7 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   integer(kind=4)  , intent(inout) :: nhit_stage(num_particles)
   integer(kind=4)  , intent(inout) :: nabs_type(num_particles)
   logical(kind=4)  , intent(inout) :: linside(num_particles)
+  integer, intent(in)          :: rng_seed
 
   integer j
 
@@ -115,6 +117,8 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   !numpart="20000"
   !read(numpart,*) napx
   npart=num_particles
+
+  if(rnd_seed .le.  0) call rluxgo(3, rng_seed, 0, 0)
   
   do j=1,npart
     naa(j) = aa0
