@@ -47,7 +47,8 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
                 p_particles, part_hit_pos, part_hit_turn, &
                 part_abs_pos, part_abs_turn, part_impact, &
                 part_indiv, part_linteract, nhit_stage, nabs_type, linside, &
-                rng_seed)
+                icoll, iturn, ie, c_length, c_rotation, c_aperture, c_offset, &
+                c_tilt, c_enom, onesided, rng_seed)
 
   use floatPrecision
   use numerical_constants
@@ -90,24 +91,20 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   integer(kind=4)  , intent(inout) :: nhit_stage(num_particles)
   integer(kind=4)  , intent(inout) :: nabs_type(num_particles)
   logical(kind=4)  , intent(inout) :: linside(num_particles)
+  integer(kind=4)  , intent(in):: icoll
+  integer(kind=4)  , intent(in):: iturn
+  integer(kind=4)  , intent(in):: ie
+  real(kind=8) , intent(in):: c_length
+  real(kind=8) , intent(in):: c_rotation
+  real(kind=8) , intent(in):: c_aperture
+  real(kind=8) , intent(in):: c_offset
+  real(kind=8) , intent(inout):: c_tilt(2)
+  real(kind=8) , intent(in):: c_enom
+  logical(kind=4) , intent(in):: onesided
   integer, intent(in)          :: rng_seed
 
   integer j
 
-
-  ! ########################
-  ! ## function variables ##
-  ! ########################
-  integer(kind=4)  :: icoll
-  integer(kind=4)  :: iturn
-  integer(kind=4)  :: ie
-  real(kind=fPrec) :: c_length
-  real(kind=fPrec) :: c_rotation
-  real(kind=fPrec) :: c_aperture
-  real(kind=fPrec) :: c_offset
-  real(kind=fPrec) :: c_tilt(2)
-  real(kind=fPrec) :: c_enom
-  logical(kind=4)  :: onesided
 
 
   ! ####################
@@ -131,16 +128,16 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   napx=npart  ! this decreases after absorptions!
   unit208=109
 
-  icoll = 31
-  iturn = 1
-  ie =1
-  c_length = 0.59999999999999998
-  c_rotation = 0
-  c_aperture = 0.0025711021962573095
-  c_offset = 0
-  c_tilt = (0, 0)
-  c_enom = 7000000
-  onesided = .FALSE.
+  ! icoll = 31
+  ! iturn = 1
+  ! ie =1
+  ! c_length = 0.59999999999999998
+  ! c_rotation = 0
+  ! c_aperture = 0.0025711021962573095
+  ! c_offset = 0
+  ! c_tilt = (0, 0)
+  ! c_enom = 7000000
+  ! onesided = .FALSE.
 
   do j=1,npart
     rcx(j) = x_particles(j)

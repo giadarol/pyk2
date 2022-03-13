@@ -43,6 +43,16 @@ for _ in range(3):
               nhit_stage=nhit_stage,
               nabs_type=nabs_type,
               linside=linside,
+              icoll=31,
+              iturn=1,
+              ie=1,
+              c_length=0.59999999999999998,
+              c_rotation=0,
+              c_aperture=0.0025711021962573095,
+              c_offset=0,
+              c_tilt=np.array([0,0], dtype=np.float64),
+              c_enom=7000000,
+              onesided=False,
               #rng_seed=-1, # skips rng re-initlization
               rng_seed=7569
               )
