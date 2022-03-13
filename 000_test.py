@@ -20,7 +20,8 @@ nhit_stage = np.zeros(len(x_test), dtype=np.int32)
 nabs_type = np.zeros(len(x_test), dtype=np.int32)
 linside = np.zeros(len(x_test), dtype=np.int32)
 
-pyk2.pyk2_init(n_alloc = 100000, colldb_input_fname="CollDB-RunIII.dat")
+pyk2.pyk2_init(n_alloc = 100000, colldb_input_fname="CollDB-RunIII.dat",
+               rng_seed=7569)
 pyk2.pyk2(x_particles=x_test,
           xp_particles=xp_test,
           y_particles=y_test,

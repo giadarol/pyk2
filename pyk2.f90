@@ -1,4 +1,4 @@
-subroutine pyk2_init(n_alloc, colldb_input_fname)
+subroutine pyk2_init(n_alloc, colldb_input_fname, rng_seed)
   use floatPrecision
   use numerical_constants
   ! use crcoall    NODIG ??
@@ -19,6 +19,7 @@ subroutine pyk2_init(n_alloc, colldb_input_fname)
   implicit none
 
   integer, intent(in)          :: n_alloc
+  integer, intent(in)          :: rng_seed
   character(100), intent(in)   :: colldb_input_fname
 
   ! Set default values for collimator materials
@@ -26,7 +27,7 @@ subroutine pyk2_init(n_alloc, colldb_input_fname)
   cdb_fileName=colldb_input_fname
   call cdb_readCollDB
 
-  rnd_seed = 7569
+  rnd_seed = rng_seed
 
   ! Initialize random number generator
   !if(rnd_seed == 0) rnd_seed = time_getSysClock()
