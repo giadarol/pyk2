@@ -137,7 +137,6 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   c_tilt = (0, 0)
   c_enom = 7000000
   onesided = .FALSE.
-  linside(:) = .FALSE.
 
   do j=1,npart
     rcx(j) = x_particles(j)
