@@ -128,17 +128,6 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   napx=npart  ! this decreases after absorptions!
   unit208=109
 
-  ! icoll = 31
-  ! iturn = 1
-  ! ie =1
-  ! c_length = 0.59999999999999998
-  ! c_rotation = 0
-  ! c_aperture = 0.0025711021962573095
-  ! c_offset = 0
-  ! c_tilt = (0, 0)
-  ! c_enom = 7000000
-  ! onesided = .FALSE.
-
   do j=1,npart
     rcx(j) = x_particles(j)
     rcxp(j) = xp_particles(j)
