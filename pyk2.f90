@@ -139,8 +139,6 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   onesided = .FALSE.
   linside(:) = .FALSE.
 
-
-
   do j=1,npart
     rcx(j) = x_particles(j)
     rcxp(j) = xp_particles(j)
@@ -150,9 +148,11 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
     rcp(j) = p_particles(j)
   end do
 
-  call k2coll_collimate(icoll, iturn, ie, c_length, c_rotation, c_aperture, c_offset, &
-     c_tilt, rcx, rcxp, rcy, rcyp, rcp, rcs, c_enom*c1m3, part_hit_pos, part_hit_turn, &
-     part_abs_pos, part_abs_turn, part_impact, part_indiv, part_linteract,             &
+  call k2coll_collimate( &
+     icoll, iturn, ie, c_length, c_rotation, c_aperture, c_offset, c_tilt, &
+     rcx, rcxp, rcy, rcyp, rcp, rcs, &
+     c_enom*c1m3, part_hit_pos, part_hit_turn, part_abs_pos, part_abs_turn, &
+     part_impact, part_indiv, part_linteract, &
      onesided, nhit_stage, 1, nabs_type, linside)
 
   do j=1,npart
