@@ -118,7 +118,7 @@ subroutine pyk2(num_particles, x_particles, xp_particles, &
   !read(numpart,*) napx
   npart=num_particles
 
-  if(rnd_seed .le.  0) call rluxgo(3, rng_seed, 0, 0)
+  if(rnd_seed .ge.  0) call rluxgo(3, rng_seed, 0, 0)
   
   do j=1,npart
     naa(j) = aa0
