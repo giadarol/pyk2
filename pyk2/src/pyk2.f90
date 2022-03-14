@@ -115,8 +115,10 @@ subroutine pyk2_run(num_particles, x_particles, xp_particles, &
   !read(numpart,*) napx
   npart=num_particles
 
-  if(rnd_seed .ge.  0) call rluxgo(3, rng_seed, 0, 0)
-  
+  if(rng_seed .ge. 0) then
+        call rluxgo(3, rng_seed, 0, 0)
+  end if
+
   do j=1,npart
     naa(j) = aa0
     partID(j)   = j
