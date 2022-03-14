@@ -3,7 +3,7 @@ import numpy as np
 import pyk2
 
 pyk2.pyk2_init(n_alloc = 100000, colldb_input_fname="CollDB-RunIII.dat",
-               rng_seed=7569)
+               random_generator_seed=7569)
 
 for _ in range(3):
     x_test = np.loadtxt("./rcx.dump")
@@ -53,8 +53,8 @@ for _ in range(3):
                   c_tilt=np.array([0,0], dtype=np.float64),
                   c_enom=7000000,
                   onesided=False,
-                  #rng_seed=-1, # skips rng re-initlization
-                  rng_seed=7569
+                  #random_generator_seed=-1, # skips rng re-initlization
+                  random_generator_seed=7569
                   )
 
     x_ref = np.loadtxt("./rcx.dump_after_REF")

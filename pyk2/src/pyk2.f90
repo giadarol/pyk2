@@ -1,4 +1,4 @@
-subroutine pyk2_init(n_alloc, colldb_input_fname, rng_seed)
+subroutine pyk2_init(n_alloc, colldb_input_fname, random_generator_seed)
   use floatPrecision
   use numerical_constants
   ! use crcoall    NODIG ??
@@ -19,7 +19,7 @@ subroutine pyk2_init(n_alloc, colldb_input_fname, rng_seed)
   implicit none
 
   integer, intent(in)          :: n_alloc
-  integer, intent(in)          :: rng_seed
+  integer, intent(in)          :: random_generator_seed
   character(100), intent(in)   :: colldb_input_fname
 
   ! Set default values for collimator materials
@@ -27,7 +27,7 @@ subroutine pyk2_init(n_alloc, colldb_input_fname, rng_seed)
   cdb_fileName=colldb_input_fname
   call cdb_readCollDB
 
-  rnd_seed = rng_seed
+  rnd_seed = random_generator_seed
 
   ! Initialize random number generator
   !if(rnd_seed == 0) rnd_seed = time_getSysClock()
@@ -48,7 +48,7 @@ subroutine pyk2_run(num_particles, x_particles, xp_particles, &
                 part_abs_pos, part_abs_turn, part_impact, &
                 part_indiv, part_linteract, nhit_stage, nabs_type, linside, &
                 icoll, iturn, ie, c_length, c_rotation, c_aperture, c_offset, &
-                c_tilt, c_enom, onesided, rng_seed)
+                c_tilt, c_enom, onesided, random_generator_seed)
 
   use floatPrecision
   use numerical_constants
@@ -101,7 +101,7 @@ subroutine pyk2_run(num_particles, x_particles, xp_particles, &
   real(kind=8) , intent(inout):: c_tilt(2)
   real(kind=8) , intent(in):: c_enom
   logical(kind=4) , intent(in):: onesided
-  integer, intent(in)          :: rng_seed
+  integer, intent(in)          :: random_generator_seed
 
   integer j
 
@@ -115,8 +115,8 @@ subroutine pyk2_run(num_particles, x_particles, xp_particles, &
   !read(numpart,*) napx
   npart=num_particles
 
-  if(rng_seed .ge. 0) then
-        call rluxgo(3, rng_seed, 0, 0)
+  if(random_generator_seed .ge. 0) then
+        call rluxgo(3, random_generator_seed, 0, 0)
   end if
 
   do j=1,npart
