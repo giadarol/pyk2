@@ -125,4 +125,4 @@ class K2Collimator:
         py_out[mask_survived_hit] = yp_part[mask_survived_hit]/rpp_out[mask_survived_hit]
         particles.py[:npart] = py_out
 
-        #particles.reorganize() # Debug!!!
+        particles.reorganize()
