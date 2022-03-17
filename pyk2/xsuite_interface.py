@@ -94,6 +94,7 @@ class K2Collimator:
 
         mask_lost = part_abs_turn > 0
         mask_hit = part_hit_turn > 0
+        mask_not_hit = ~mask_hit
         mask_survived_hit = mask_hit & (~mask_lost)
 
         state_out = particles.state[:npart].copy()
@@ -123,5 +124,16 @@ class K2Collimator:
         py_out = particles.py[:npart]
         py_out[mask_survived_hit] = yp_part[mask_survived_hit]/rpp_out[mask_survived_hit]
         particles.py[:npart] = py_out
-
+        
+        rvv_out = particles.rvv[:npart]
+        zeta_out = particles.zeta[:npart]
+        zeta_out[mask_not_hit] += self.length*(
+                            rvv_out[mask_not_hit] - (1 + ( xp_part[mask_not_hit]**2 + yp_part[mask_not_hit]**2)/2 ) 
+                        )
+        particles.zeta[:npart] = zeta_out
+        
+        s_out = particles.s[:npart]
+        s_out[mask_not_hit] += self.length
+        particles.s[:npart] = s_out
+        
         particles.reorganize()
