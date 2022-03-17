@@ -63,7 +63,6 @@ class K2Collimator:
         # `linside` is an array of logicals in fortran. Beware of the fortran converion:
         # True <=> -1 (https://stackoverflow.com/questions/39454349/numerical-equivalent-of-true-is-1)
 
-        import pdb; pdb.set_trace()
         pyk2.pyk2_run(x_particles=x_part,
                       xp_particles=xp_part,
                       y_particles=y_part,
