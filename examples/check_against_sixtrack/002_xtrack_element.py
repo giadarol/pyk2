@@ -2,6 +2,7 @@ import numpy as np
 
 import pyk2
 import xpart as xp
+import xtrack as xt
 
 k2_engine = pyk2.K2Engine(n_alloc=100000,
         colldb_input_fname="CollDB-RunIII.dat", random_generator_seed=7569)
@@ -66,3 +67,39 @@ assert np.allclose(xp_part[state_part>0], xp_ref[state_part>0], atol=5e-9, rtol=
 assert np.allclose(y_part[state_part>0], y_ref[state_part>0], atol=1e-9, rtol=0)
 assert np.allclose(yp_part[state_part>0], yp_ref[state_part>0], atol=5e-9, rtol=0)
 assert np.allclose(p_part[state_part>0], p_ref[state_part>0], atol=0, rtol=1e-7)
+
+
+
+part2 = xp.Particles(p0c=7e12, px=[0,1e-3,1], delta=[0,1e-2,0])
+part2cp = part2.copy()
+
+part2in = part2.copy()
+
+collimator.track(part2)
+
+dr = xt.Drift(length=collimator.length)
+dr.track(part2cp)
+
+mask = np.array([True, True, False])
+
+assert np.all(part2.state == np.array([1,1,-333]))
+
+assert np.allclose(part2.x[mask], part2cp.x[mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.px[mask], part2cp.px[mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.y[mask], part2cp.y[mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.py[mask], part2cp.py[mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.zeta[mask], part2cp.zeta[mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.delta[mask], part2cp.delta[mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.s[mask], part2cp.s[mask], atol=1e-12, rtol=0)
+
+assert np.allclose(part2.x[~mask], part2in.x[~mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.px[~mask], part2in.px[~mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.y[~mask], part2in.y[~mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.py[~mask], part2in.py[~mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.zeta[~mask], part2in.zeta[~mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.delta[~mask], part2in.delta[~mask], atol=1e-12, rtol=0)
+assert np.allclose(part2.s[~mask], part2in.s[~mask], atol=1e-12, rtol=0)
+
+
+
+
